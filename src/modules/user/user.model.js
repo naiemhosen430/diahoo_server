@@ -15,14 +15,14 @@ const userSchema = new Schema(
             "default": "",
           },
         coverphoto: {
-          "type": "array",
+          "type": "String",
           "required": true,
-          "default": ""
+          "default": "default.jpeg"
         },
         profilephoto: {
-          "type": "array",
+          "type": "String",
           "required": true,
-          "default": ""
+          "default": "default.jpeg"
         },
         tittle: {
           "type": "string",
@@ -91,6 +91,20 @@ const userSchema = new Schema(
         },
         note: {
           "type": "Array"
+        },
+        position: {
+          "type": "string",
+          "required": true,
+          "minLength": 0,
+          "maxLength": 50,
+          "default": "not set"
+        },
+        relationshipstatus: {
+          "type": "string",
+          "required": true,
+          "minLength": 0,
+          "maxLength": 50,
+          "default": "Single"
         }
   },
   {
