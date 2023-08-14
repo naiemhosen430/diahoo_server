@@ -17,20 +17,29 @@ const postscheama = new Schema(
         "default": "no video"
       },
       postownerid: {
+        "required": true,
         "type": "string",
-        "required": "true"
       },
       like: {
-        "type": "Array"
+        "required": true,
+        "type": "Array",
+        "default": []
       },
       comment: {
-        "type": "Array"
+        "required": true,
+        "type": "Array",
+        "default": []
       },
       blockfor: {
-        "type": "Array"
+        "required": true,
+        "type": "Array",
+        "default": []
       },
       type: {
-        "type": "String"
+        "required": true,
+        "type": "String",
+        "default": 'post',
+        'enum': ["post", "video", "sv"],
       }
     },
     {

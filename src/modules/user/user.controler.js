@@ -1,6 +1,6 @@
 import bcryptjs from 'bcryptjs'
 import UserModel from './user.model.js'
-import { createUserService, findMeService, loginUserService } from './user.service.js'
+import { createUserService, findMeService, getSingleUserService, loginUserService, updateMeService } from './user.service.js'
 import { genarateToken } from '../../utils/genarateToken.js'
 
 
@@ -13,7 +13,6 @@ export const createUserController = async (req, res) => {
         message: 'This email is already in use',
       })
     }
-    console.log(req.body.password, req.body.confirmpassword)
 
     if (req.body.password !== req.body.confirmpassword) {
       return res.status(400).json({
@@ -78,7 +77,6 @@ export const loginUserController = async (req, res) => {
 
     const checkPassword = await bcryptjs.compare(req.body.password, result.password)
 
-    console.log(checkPassword)
     if (!checkPassword) {
       return res.status(401).json({
         statusCode: 401,
@@ -138,6 +136,36 @@ export const findMeControler = async (req,res) => {
       message: 'success',
       data: data
     })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
+export const getSingleUserControler = async (req,res) => {
+  try {
+      const id = req.params.id
+      const data = await getSingleUserService(id)
+
+      if (!data) {
+          return res.status(498).json({
+              statusCode: 498,
+              message: 'Something went wrong'
+          })
+      }
+      res.status(200).json({
+          statusCode: 200,
+          message: 'success',
+          data: data
+      })
+  } catch (error) {
+      console.log(error)
+  }
+}
+
+export const updatyeMeControler = async (req,res) => {
+  try {
+    const data = await updateMeService(req)
   } catch (error) {
     console.log(error)
   }
