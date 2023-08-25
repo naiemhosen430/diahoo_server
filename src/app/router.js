@@ -1,17 +1,22 @@
 import express from "express";
 import userRouter from "../modules/user/user.router.js";
 import postRouter from "../modules/post/post.router.js";
-const router = express.Router()
+import chatRouter from "../modules/chat/chat.router.js";
+import searchRouter from "../modules/search/search.router.js";
+import ntfRouter from "../modules/Notification/ntf.Router.js";
+const router = express.Router();
 
-router.get('/', (req,res) => {
-    
-console.log(req.signedCookies.diahoologinaccess)
+router.get("/", (req, res) => {
+  console.log(req.signedCookies.diahoologinaccess);
 
-    res.json('Diahoo server is runing')
-})
+  res.json("Diahoo server is runing");
+});
 
 // user router
-router.use('/api/v1/user', userRouter)
-router.use('/api/v1/post', postRouter)
+router.use("/api/v1/user", userRouter);
+router.use("/api/v1/post", postRouter);
+router.use("/api/v1/chat", chatRouter);
+router.use("/api/v1/search", searchRouter);
+router.use("/api/v1/ntf", ntfRouter);
 
-export default router
+export default router;

@@ -1,30 +1,30 @@
-import express from 'express'
-import { createPostControler, disLikeControler, getAllPostControler, getMyPostControler, likeControler, submitCommentControler } from './post.controler.js'
-import upload from '../../utils/uploadSingleIm,age.js'
+import express from "express";
+import {
+  createPostControler,
+  disLikeControler,
+  getAllPostControler,
+  getMyPostControler,
+  likeControler,
+  submitCommentControler,
+} from "./post.controler.js";
+import upload from "../../utils/uploadSingleIm,age.js";
 
+const postRouter = express.Router();
 
+postRouter.route("/").get(getAllPostControler);
 
-const postRouter = express.Router()
+postRouter.route("/:id").get(getMyPostControler);
 
-postRouter.route('/')
-.get(getAllPostControler)
+postRouter
+  .route("/create/:id")
+  .post(createPostControler, upload.array("file", 10));
 
-postRouter.route('/:mypost')
-.get(getMyPostControler)
+postRouter.route("/comment/submit/:id/:postid").post(submitCommentControler);
 
-postRouter.route('/create/:id')
-.post(createPostControler, upload.array('file', 10))
+postRouter.route("/like/:likerid/:postid/:postownerid").post(likeControler);
 
-postRouter.route('/comment/submit/:id/:postid')
-.post(submitCommentControler)
+postRouter
+  .route("/dislike/:likerid/:postid/:postownerid")
+  .post(disLikeControler);
 
-postRouter.route('/like/:likerid/:postid/:postownerid')
-.post(likeControler)
-
-postRouter.route('/dislike/:likerid/:postid/:postownerid')
-.post(disLikeControler)
-
-
-
-
-export default postRouter
+export default postRouter;
