@@ -66,6 +66,11 @@ const userSchema = new Schema(
       type: "Array",
       default: [],
     },
+    block: {
+      required: true,
+      type: "Array",
+      default: [],
+    },
     homecity: {
       type: "string",
       required: true,

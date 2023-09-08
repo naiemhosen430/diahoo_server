@@ -172,3 +172,16 @@ export const unfriendService = async (id, myid) => {
   );
   return result;
 };
+
+export const blockService = async (id, myid) => {
+  await UserModel.updateOne(
+    { _id: myid },
+    {
+      $pull: {
+        block: id,
+      },
+    }
+  );
+
+  return result;
+};
