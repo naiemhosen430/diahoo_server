@@ -1,6 +1,7 @@
 import bcryptjs from "bcryptjs";
 import UserModel from "./user.model.js";
 import {
+  blockService,
   cencelRequestService,
   confirmRequestService,
   createUserService,
@@ -359,6 +360,34 @@ export const unfriendControler = async (req, res) => {
     }
 
     const data = await unfriendService(req.params.id, req.params.myid);
+
+    if (!data) {
+      return res.status(498).json({
+        statusCode: 498,
+        message: "Something went wrong",
+      });
+    }
+
+    res.status(200).json({
+      statusCode: 200,
+      message: "success",
+      data: data,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const blockControler = async (req, res) => {
+  try {
+    if (!req.params.myid && !req.params.id) {
+      return res.status(498).json({
+        statusCode: 498,
+        message: "Something went wrong",
+      });
+    }
+
+    const data = await blockService(req.params.id, req.params.myid);
 
     if (!data) {
       return res.status(498).json({

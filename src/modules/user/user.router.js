@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  blockControler,
   cencelRequestControler,
   confirmRequestControler,
   createUserController,
@@ -29,6 +30,8 @@ userRouter.route("/confirmrequest/:id/:myid").post(confirmRequestControler);
 userRouter.route("/deleterequest/:id/:myid").post(deleteRequestControler);
 
 userRouter.route("/unfriend/:id/:myid").post(unfriendControler);
+
+userRouter.route("/block/:id/:myid").post(blockControler);
 
 userRouter.route("/me/:id").get(findMeControler);
 
