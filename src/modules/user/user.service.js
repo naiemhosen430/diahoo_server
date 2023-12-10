@@ -18,6 +18,10 @@ export const findMeService = async (ruseridq) => {
 export const getSingleUserService = async (id, myid) => {
   const user = await UserModel.findOne({ _id: id });
 
+  if (!user) {
+    return null;
+  }
+
   let checkFriend = false;
   user.friends.map((fid) => {
     if (fid === myid) {

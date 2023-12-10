@@ -4,4 +4,4 @@ node_modules
 .png
 .jpeg
 package-lock.json
-package.json
+.vercel

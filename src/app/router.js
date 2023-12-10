@@ -7,7 +7,7 @@ import ntfRouter from "../modules/Notification/ntf.Router.js";
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  console.log(req.signedCookies.diahoologinaccess);
+  console.log("diahoo serber is runing");
 
   res.json("Diahoo server is runing");
 });
