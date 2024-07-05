@@ -1,4 +1,3 @@
-import UserModel from "../user/user.model.js";
 import postmodel from "./post.model.js";
 import {
   createPostService,

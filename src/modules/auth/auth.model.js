@@ -31,18 +31,23 @@ const userSchema = new Schema(
       maxLength: 300,
       default: "not set",
     },
-    age: {
-      type: "Number",
-      required: true,
-      min: 12,
-      max: 100,
-      default: 12,
-    },
     gender: {
       type: "String",
       required: true,
-      enum: ["male", "female", "not set"],
+      enum: ["male", "female", "other"],
       default: "not set",
+    },
+    status: {
+      type: "String",
+      required: true,
+      enum: ["active", "blocked"],
+      default: "active",
+    },
+    role: {
+      type: "String",
+      required: true,
+      enum: ["user"],
+      default: "user",
     },
     hometwon: {
       type: "string",
@@ -81,8 +86,6 @@ const userSchema = new Schema(
     birthday: {
       type: "string",
       required: true,
-      minLength: 0,
-      maxLength: 50,
       default: "not set",
     },
     online_status: {

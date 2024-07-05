@@ -1,21 +1,42 @@
 import bcryptjs from "bcryptjs";
+import UserModel from "./auth.model.js";
 import {
   blockService,
   cencelRequestService,
   confirmRequestService,
   createUserService,
   deleteRequestService,
-  findMeService,
+  findOneByIdFromUser,
+  findOneByEmailFromUser,
   getSingleUserService,
-  loginUserService,
   sendRequestService,
   unfriendService,
   updateMeService,
-} from "./user.service.js";
+} from "./auth.service.js";
 import { genarateToken } from "../../utils/genarateToken.js";
 
 export const createUserController = async (req, res) => {
+  console.log(req);
+  console.log(req.body);
+  console.log(req.body.fullname);
+  console.log(req.body.email);
+  console.log(req.body.gender);
+  console.log(req.body.password);
+  console.log(req.body.birthday);
   try {
+    if (
+      !req.body.fullname ||
+      !req.body.email ||
+      !req.body.gender ||
+      !req.body.password ||
+      !req.body.birthday
+    ) {
+      return res.status(409).json({
+        statusCode: 409,
+        message: "All cradencial required.",
+      });
+    }
+
     const checkUser = await UserModel.findOne({ email: req.body.email });
     if (checkUser) {
       return res.status(409).json({
@@ -24,17 +45,12 @@ export const createUserController = async (req, res) => {
       });
     }
 
-    if (req.body.password !== req.body.confirmpassword) {
-      return res.status(400).json({
-        statusCode: 400,
-        message: "Password and confirm password do not match",
-      });
-    }
-
     const hashPassword = bcryptjs.hashSync(req.body.password, 10);
     const userinfo = {
       fullname: req.body.fullname,
       email: req.body.email,
+      email: req.body.birthday,
+      email: req.body.gender,
       password: hashPassword,
     };
 
@@ -49,6 +65,7 @@ export const createUserController = async (req, res) => {
 
     const tokenObj = {
       userId: result._id,
+      role: result.role,
     };
 
     const token = await genarateToken(tokenObj);
@@ -63,7 +80,8 @@ export const createUserController = async (req, res) => {
     return res.status(200).json({
       statusCode: 200,
       message: "User created successfully",
-      data: token,
+      data: result,
+      token,
     });
   } catch (error) {
     console.log(error);
@@ -76,7 +94,14 @@ export const createUserController = async (req, res) => {
 
 export const loginUserController = async (req, res) => {
   try {
-    const result = await loginUserService(req);
+    if (!req.body.email || !req.body.password) {
+      return res.status(409).json({
+        statusCode: 409,
+        message: "All cradencial required.",
+      });
+    }
+
+    const result = await findOneByEmailFromUser(req.body.email);
 
     if (!result) {
       return res.status(404).json({
@@ -99,6 +124,7 @@ export const loginUserController = async (req, res) => {
 
     const tokenObj = {
       userId: result._id,
+      role: result.role,
     };
 
     const token = await genarateToken(tokenObj);
@@ -113,7 +139,8 @@ export const loginUserController = async (req, res) => {
     res.status(200).json({
       statusCode: 200,
       message: "Login success",
-      data: token,
+      data: result,
+      token,
     });
   } catch (error) {
     console.log(error);
@@ -135,7 +162,7 @@ export const findMeControler = async (req, res) => {
       });
     }
 
-    const data = await findMeService(userd);
+    const data = await findOneByIdFromUser(userd);
 
     if (!data) {
       res.status(498).json({

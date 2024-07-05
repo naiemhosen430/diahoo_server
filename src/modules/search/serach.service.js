@@ -1,5 +1,4 @@
 import postmodel from "../post/post.model.js";
-import UserModel from "../user/user.model.js";
 
 export const searchService = async (text) => {
   const searchText = new RegExp(text, "i");

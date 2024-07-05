@@ -1,4 +1,3 @@
-import UserModel from "../user/user.model.js";
 import chatmodel from "./chat.model.js";
 import {
   getMyConversionService,
