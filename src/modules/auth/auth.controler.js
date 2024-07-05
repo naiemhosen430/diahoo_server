@@ -16,13 +16,6 @@ import {
 import { genarateToken } from "../../utils/genarateToken.js";
 
 export const createUserController = async (req, res) => {
-  console.log(req);
-  console.log(req.body);
-  console.log(req.body.fullname);
-  console.log(req.body.email);
-  console.log(req.body.gender);
-  console.log(req.body.password);
-  console.log(req.body.birthday);
   try {
     if (
       !req.body.fullname ||
@@ -153,7 +146,7 @@ export const loginUserController = async (req, res) => {
 
 export const findMeControler = async (req, res) => {
   try {
-    const userd = req.params.id;
+    const userd = req.user.userId;
 
     if (!userd) {
       res.status(498).json({

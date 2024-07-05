@@ -5,6 +5,7 @@ import {
   loginUserController,
   updatyeMeControler,
 } from "./auth.controler.js";
+import { authentication } from "../../utils/Authentication.js";
 
 const authRouter = express.Router();
 
@@ -12,7 +13,7 @@ authRouter.route("/register").post(createUserController);
 
 authRouter.route("/login").post(loginUserController);
 
-authRouter.route("/me").get(findMeControler);
+authRouter.route("/me").get(authentication, findMeControler);
 
 authRouter.route("/update").put(updatyeMeControler);
 
