@@ -14,7 +14,7 @@ const postRouter = express.Router();
 
 postRouter.route("/").get(getAllPostControler);
 
-postRouter.route("/:id").get(getMyPostControler);
+postRouter.route("/user/:id").get(getMyPostControler);
 
 postRouter
   .route("/create/:id")
