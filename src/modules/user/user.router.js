@@ -1,4 +1,5 @@
 import express from "express";
+import { authentication } from "./../../utils/Authentication.js";
 import {
   blockControler,
   cencelRequestControler,
@@ -16,16 +17,22 @@ userRouter.route("/").get(getAllUserControler);
 
 userRouter.route("/:id").get(getSingleUserControler);
 
-userRouter.route("/sendrequest/:id").post(sendRequestControler);
+userRouter.route("/sendrequest/:id").post(authentication, sendRequestControler);
 
-userRouter.route("/cencelrequest/:id").post(cencelRequestControler);
+userRouter
+  .route("/cencelrequest/:id")
+  .post(authentication, cencelRequestControler);
 
-userRouter.route("/confirmrequest/:id").post(confirmRequestControler);
+userRouter
+  .route("/confirmrequest/:id")
+  .post(authentication, confirmRequestControler);
 
-userRouter.route("/deleterequest/:id").post(deleteRequestControler);
+userRouter
+  .route("/deleterequest/:id")
+  .post(authentication, deleteRequestControler);
 
-userRouter.route("/unfriend/:id").post(unfriendControler);
+userRouter.route("/unfriend/:id").post(authentication, unfriendControler);
 
-userRouter.route("/block/:id").post(blockControler);
+userRouter.route("/block/:id").post(authentication, blockControler);
 
 export default userRouter;

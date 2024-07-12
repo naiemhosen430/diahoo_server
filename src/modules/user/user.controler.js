@@ -54,14 +54,14 @@ export const getSingleUserControler = async (req, res) => {
 
 export const sendRequestControler = async (req, res) => {
   try {
-    if (!req.params.myid && !req.params.id) {
+    if (!req.user.userId && !req.params.id) {
       return res.status(498).json({
         statusCode: 498,
         message: "Something went wrong",
       });
     }
 
-    const myself = await UserModel.findOne({ _id: req.params.myid });
+    const myself = await UserModel.findOne({ _id: req.user.userId });
     const checkRequestmyself = myself.friendrequests || [];
     const flatCheckRequestmyself = [].concat(...checkRequestmyself);
     let foundonmyself = false;
@@ -76,7 +76,7 @@ export const sendRequestControler = async (req, res) => {
     const flatCheckRequest = [].concat(...checkRequest);
     let found = false;
     flatCheckRequest.forEach((id) => {
-      if (id === req.params.myid) {
+      if (id === req.user.userId) {
         found = true;
       }
     });
@@ -94,7 +94,7 @@ export const sendRequestControler = async (req, res) => {
       });
     }
 
-    const data = await sendRequestService(req.params.id, req.params.myid);
+    const data = await sendRequestService(req.params.id, req.user.userId);
 
     if (!data) {
       return res.status(498).json({
@@ -115,14 +115,14 @@ export const sendRequestControler = async (req, res) => {
 
 export const cencelRequestControler = async (req, res) => {
   try {
-    if (!req.params.myid && !req.params.id) {
+    if (!req.user.userId && !req.params.id) {
       return res.status(498).json({
         statusCode: 498,
         message: "Something went wrong",
       });
     }
 
-    const data = await cencelRequestService(req.params.id, req.params.myid);
+    const data = await cencelRequestService(req.params.id, req.user.userId);
 
     if (!data) {
       return res.status(498).json({
@@ -143,14 +143,14 @@ export const cencelRequestControler = async (req, res) => {
 
 export const confirmRequestControler = async (req, res) => {
   try {
-    if (!req.params.myid && !req.params.id) {
+    if (!req.user.userId && !req.params.id) {
       return res.status(498).json({
         statusCode: 498,
         message: "Something went wrong",
       });
     }
 
-    const data = await confirmRequestService(req.params.id, req.params.myid);
+    const data = await confirmRequestService(req.params.id, req.user.userId);
 
     if (!data) {
       return res.status(498).json({
@@ -171,14 +171,14 @@ export const confirmRequestControler = async (req, res) => {
 
 export const deleteRequestControler = async (req, res) => {
   try {
-    if (!req.params.myid && !req.params.id) {
+    if (!req.user.userId && !req.params.id) {
       return res.status(498).json({
         statusCode: 498,
         message: "Something went wrong",
       });
     }
 
-    const data = await deleteRequestService(req.params.id, req.params.myid);
+    const data = await deleteRequestService(req.params.id, req.user.userId);
 
     if (!data) {
       return res.status(498).json({
@@ -199,14 +199,14 @@ export const deleteRequestControler = async (req, res) => {
 
 export const unfriendControler = async (req, res) => {
   try {
-    if (!req.params.myid && !req.params.id) {
+    if (!req.user.userId && !req.params.id) {
       return res.status(498).json({
         statusCode: 498,
         message: "Something went wrong",
       });
     }
 
-    const data = await unfriendService(req.params.id, req.params.myid);
+    const data = await unfriendService(req.params.id, req.user.userId);
 
     if (!data) {
       return res.status(498).json({
@@ -227,14 +227,14 @@ export const unfriendControler = async (req, res) => {
 
 export const blockControler = async (req, res) => {
   try {
-    if (!req.params.myid && !req.params.id) {
+    if (!req.user.userId && !req.params.id) {
       return res.status(498).json({
         statusCode: 498,
         message: "Something went wrong",
       });
     }
 
-    const data = await blockService(req.params.id, req.params.myid);
+    const data = await blockService(req.params.id, req.user.userId);
 
     if (!data) {
       return res.status(498).json({
