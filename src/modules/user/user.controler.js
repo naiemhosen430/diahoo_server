@@ -9,6 +9,7 @@ import {
   unfriendService,
   getAllUserService,
 } from "./user.service.js";
+import UserModel from "../auth/auth.model.js";
 
 export const getAllUserControler = async (req, res) => {
   try {
