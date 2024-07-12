@@ -17,22 +17,22 @@ userRouter.route("/").get(getAllUserControler);
 
 userRouter.route("/:id").get(getSingleUserControler);
 
-userRouter.route("/sendrequest/:id").post(authentication, sendRequestControler);
+userRouter.route("/sendrequest/:id").put(authentication, sendRequestControler);
 
 userRouter
   .route("/cencelrequest/:id")
-  .post(authentication, cencelRequestControler);
+  .put(authentication, cencelRequestControler);
 
 userRouter
   .route("/confirmrequest/:id")
-  .post(authentication, confirmRequestControler);
+  .put(authentication, confirmRequestControler);
 
 userRouter
   .route("/deleterequest/:id")
-  .post(authentication, deleteRequestControler);
+  .put(authentication, deleteRequestControler);
 
-userRouter.route("/unfriend/:id").post(authentication, unfriendControler);
+userRouter.route("/unfriend/:id").put(authentication, unfriendControler);
 
-userRouter.route("/block/:id").post(authentication, blockControler);
+userRouter.route("/block/:id").put(authentication, blockControler);
 
 export default userRouter;
