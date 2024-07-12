@@ -8,6 +8,7 @@ import {
   submitCommentControler,
 } from "./post.controler.js";
 import upload from "../../utils/uploadSingleIm,age.js";
+import { authentication } from "./../../utils/Authentication.js";
 
 const postRouter = express.Router();
 
@@ -19,12 +20,12 @@ postRouter
   .route("/create/:id")
   .post(createPostControler, upload.array("file", 10));
 
-postRouter.route("/comment/submit/:id/:postid").post(submitCommentControler);
-
-postRouter.route("/like/:likerid/:postid/:postownerid").post(likeControler);
-
 postRouter
-  .route("/dislike/:likerid/:postid/:psostownerid")
-  .post(disLikeControler);
+  .route("/comment/submit/:postid")
+  .put(authentication, submitCommentControler);
+
+postRouter.route("/like/:postid").put(authentication, likeControler);
+
+postRouter.route("/dislike/:postid").put(authentication, disLikeControler);
 
 export default postRouter;

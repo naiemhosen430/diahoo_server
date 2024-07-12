@@ -71,15 +71,17 @@ export const getSinglePersonChatControler = async (req, res) => {
 };
 
 export const getMyConviersion = async (req, res) => {
+  const userd = req.user.userId;
+
   try {
-    if (!req.params.myid) {
+    if (!userd) {
       return res.status(498).json({
         statusCode: 498,
         message: "Something went wrong",
       });
     }
 
-    const data = await getMyConversionService(req.params.myid);
+    const data = await getMyConversionService(userd);
 
     res.status(200).json({
       statusCode: 200,

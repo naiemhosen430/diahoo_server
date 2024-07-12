@@ -62,13 +62,6 @@ export const getAllPostControler = async (req, res) => {
 
 export const submitCommentControler = async (req, res) => {
   try {
-    if (!req.params.id) {
-      return res.status(498).json({
-        statusCode: 498,
-        message: "Something went wrong",
-      });
-    }
-
     if (!req.params.postid) {
       return res.status(498).json({
         statusCode: 498,
@@ -93,14 +86,13 @@ export const submitCommentControler = async (req, res) => {
     }
 
     const data = await submitCommentService(
-      req.params.id,
+      req.user.userId,
       req.params.postid,
       req.body.commentText
     );
     res.status(200).json({
       statusCode: 200,
       message: "success",
-      total: data.lenghth,
       data: data,
     });
   } catch (error) {
@@ -110,7 +102,7 @@ export const submitCommentControler = async (req, res) => {
 
 export const likeControler = async (req, res) => {
   try {
-    if (!req.params.likerid && !req.params.postid && !req.params.postownerid) {
+    if (!req.params.postid) {
       return res.status(498).json({
         statusCode: 498,
         message: "Something went wrong",

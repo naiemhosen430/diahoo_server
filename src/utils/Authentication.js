@@ -22,7 +22,6 @@ export const authentication = (req, res, next) => {
       }
 
       req.user = decoded;
-      console.log(decoded);
 
       next();
     });

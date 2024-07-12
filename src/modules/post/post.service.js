@@ -1,12 +1,12 @@
-import postmodel from "./post.model.js";
+import PostModel from "./post.model.js";
 
 export const createPostService = async (req) => {
-  const result = await postmodel.create(req);
+  const result = await PostModel.create(req);
   return result;
 };
 
 export const getAllPostService = async () => {
-  const result = await postmodel.find();
+  const result = await PostModel.aggregate([{ $sample: { size: 5 } }]);
   return result;
 };
 
@@ -17,7 +17,7 @@ export const submitCommentService = async (submiterid, postid, content) => {
     time: new Date(),
   };
 
-  const result = await postmodel.updateOne(
+  const result = await PostModel.updateOne(
     { _id: postid },
     {
       $push: {
@@ -29,13 +29,14 @@ export const submitCommentService = async (submiterid, postid, content) => {
 };
 
 export const likeService = async (req) => {
+  const userd = req.user.userId;
+
   const newlike = {
-    postid: req.params.postid,
-    likeduserid: req.params.likerid,
-    postownerid: req.params.postownerid,
+    time: new Date(),
+    likeduserid: userd,
   };
 
-  const result = await postmodel.updateOne(
+  const result = await PostModel.updateOne(
     { _id: req.params.postid },
     {
       $push: {
@@ -48,10 +49,12 @@ export const likeService = async (req) => {
 };
 
 export const disLikeService = async (req) => {
-  const result = await postmodel.updateOne(
+  const userd = req.user.userId;
+
+  const result = await PostModel.updateOne(
     { _id: req.params.postid },
     {
-      $pull: { like: { likeduserid: req.params.likerid } },
+      $pull: { like: { likeduserid: userd } },
     }
   );
 
@@ -59,6 +62,6 @@ export const disLikeService = async (req) => {
 };
 
 export const geMyPostService = async (req) => {
-  const result = await postmodel.find({ postownerid: req.params.id });
+  const result = await PostModel.find({ postownerid: req.params.id });
   return result.reverse();
 };
