@@ -15,7 +15,7 @@ router.get("/", (req, res) => {
 
 // user router
 router.use("/api/v1/auth", authRouter);
-// router.use("/api/v1/user", userRouter);
+router.use("/api/v1/user", userRouter);
 router.use("/api/v1/post", postRouter);
 router.use("/api/v1/chat", chatRouter);
 router.use("/api/v1/search", searchRouter);

@@ -15,6 +15,6 @@ authRouter.route("/login").post(loginUserController);
 
 authRouter.route("/me").get(authentication, findMeControler);
 
-authRouter.route("/update").put(updatyeMeControler);
+authRouter.route("/update").put(authentication, updatyeMeControler);
 
 export default authRouter;

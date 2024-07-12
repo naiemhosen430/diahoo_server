@@ -3,38 +3,29 @@ import {
   blockControler,
   cencelRequestControler,
   confirmRequestControler,
-  createUserController,
   deleteRequestControler,
-  findMeControler,
   getSingleUserControler,
-  loginUserController,
   sendRequestControler,
   unfriendControler,
-  updatyeMeControler,
+  getAllUserControler,
 } from "./user.controler.js";
 
 const userRouter = express.Router();
 
-userRouter.route("/create").post(createUserController);
+userRouter.route("/").get(getAllUserControler);
 
-userRouter.route("/login").post(loginUserController);
+userRouter.route("/:id").get(getSingleUserControler);
 
-userRouter.route("/public/:id").get(getSingleUserControler);
+userRouter.route("/sendrequest/:id").post(sendRequestControler);
 
-userRouter.route("/sendrequest/:id/:myid").post(sendRequestControler);
+userRouter.route("/cencelrequest/:id").post(cencelRequestControler);
 
-userRouter.route("/cencelrequest/:id/:myid").post(cencelRequestControler);
+userRouter.route("/confirmrequest/:id").post(confirmRequestControler);
 
-userRouter.route("/confirmrequest/:id/:myid").post(confirmRequestControler);
+userRouter.route("/deleterequest/:id").post(deleteRequestControler);
 
-userRouter.route("/deleterequest/:id/:myid").post(deleteRequestControler);
+userRouter.route("/unfriend/:id").post(unfriendControler);
 
-userRouter.route("/unfriend/:id/:myid").post(unfriendControler);
-
-userRouter.route("/block/:id/:myid").post(blockControler);
-
-userRouter.route("/me/:id").get(findMeControler);
-
-userRouter.route("/me/edit/:id").put(updatyeMeControler);
+userRouter.route("/block/:id").post(blockControler);
 
 export default userRouter;

@@ -1,3 +1,10 @@
+import UserModel from "./../auth/auth.model.js";
+
+export const getAllUserService = async (req) => {
+  const result = await UserModel.find();
+  return result;
+};
+
 export const createUserService = async (userinfo) => {
   const result = await UserModel.create(userinfo);
   return result;
