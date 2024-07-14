@@ -34,7 +34,7 @@ const userSchema = new Schema(
     gender: {
       type: "String",
       required: true,
-      enum: ["male", "female", "other"],
+      enum: ["male", "female", "other", "not set"],
       default: "not set",
     },
     status: {
@@ -89,7 +89,9 @@ const userSchema = new Schema(
       default: "not set",
     },
     online_status: {
-      type: "number",
+      type: "bolean",
+      required: true,
+      default: false,
     },
     email: {
       type: "String",
