@@ -89,9 +89,10 @@ const userSchema = new Schema(
       default: "not set",
     },
     online_status: {
-      type: "bolean",
+      type: "string",
+      enum: ["true","false"],
       required: true,
-      default: false,
+      default: "false",
     },
     email: {
       type: "String",
